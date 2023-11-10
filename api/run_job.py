@@ -13,9 +13,11 @@ from programs.model import Model
 from programs.result import Result
 from programs.summarize import summarize
 
+import pandas as pd
 
 
-def run(cutoffs = [1.5, 2.5]):
+
+def run(dir, cutoffs = [1.5, 2.5], input = "input/", output = "output/"):
     job = {
         'id': 1,
         'date': 1,
@@ -29,18 +31,22 @@ def run(cutoffs = [1.5, 2.5]):
     model = Model(cutoffs=cutoffs)
 
 
-    files = ["./tmp/test.png", "./tmp/F152-day8-ZT0.png", "./tmp/F101-day8-ZT0.png", "./tmp/F107-day7-ZT12.png"]
+    files = os.listdir(dir + input)
 
     # start analysis
     results = []
     for i, filename in enumerate(files):
+        filename = dir + input + filename
         img = model.load_image(filename)
         pred = model.predict(job['has-gams'])
         print(pred)
         result = Result(str(i), filename, img, pred)
-        result.plot_prediction(name=str(cutoffs[0]), dir = filename.split("/")[-1][:-3])
+        result.plot_prediction(name=filename.split("/")[-1][:-4])
         results.append(result.to_output())
         print(results)
+
+    df = pd.DataFrame(results)
+    df.to_csv(dir + output + "results.csv")
     output = {
         'data': {
             'results': results,
@@ -51,6 +57,4 @@ def run(cutoffs = [1.5, 2.5]):
 
     return output
 
-test_cutoffs = [1, 1.04, 1.1, 1.3, 1.5, 1.7]
-for t in test_cutoffs:
-    print(run(cutoffs= [t, 2.5]))
+print(run("./tmp/"))

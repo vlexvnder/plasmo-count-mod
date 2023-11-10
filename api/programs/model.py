@@ -24,6 +24,7 @@ class Model:
         model_path = model_path
         device = torch.device(
             'cuda') if torch.cuda.is_available() else torch.device('cpu')
+
         print("CUDA:",torch.cuda.is_available()  )
         self.od_model = torch.load("./models/"+od_model,  'cpu')
         self.od_model.eval()

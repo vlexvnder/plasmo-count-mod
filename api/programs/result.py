@@ -42,7 +42,7 @@ class Result:
         self.parasitemia = round(self.n_infected / len(self), self.n_digits)
         self.life_stage_counts = self.pred['life_stage_c'].value_counts()
         self.asex = self.get_asexuals()
-        self.plot_prediction()
+        # self.plot_prediction()
 
     def to_output(self):
         def _transform_name(fname):
@@ -80,13 +80,13 @@ class Result:
             lambda x: round(x, self.n_digits))
         return asex[['filename', 'life_stage']]
 
-    def plot_prediction(self, name = "", dir = "test", **kwargs):
+    def plot_prediction(self, name = "", dir = "output", **kwargs):
         try:
             os.mkdir("./tmp/" + dir)
         except FileExistsError:
             # directory already exists
             pass
-        fname = str( "./tmp/" + dir + "/" + name + 'result.png')
+        fname = str("./tmp/" + dir + "/" + name + '.png')
         buf = io.BytesIO()
         plot_labels(self.img, {
             'boxes': self.pred['boxes'].tolist(),
