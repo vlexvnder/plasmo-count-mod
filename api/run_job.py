@@ -57,4 +57,5 @@ def run(dir, cutoffs = [1.5, 2.5], input = "input/", output = "output/"):
 
     return output
 
-print(run("./tmp/"))
+if __name__ == "__main__":
+    print(run("../../data/"))

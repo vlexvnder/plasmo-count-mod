@@ -25,8 +25,10 @@ class Model:
         device = torch.device(
             'cuda') if torch.cuda.is_available() else torch.device('cpu')
 
-        print("CUDA:",torch.cuda.is_available()  )
-        self.od_model = torch.load("./models/"+od_model,  'cpu')
+        print("CUDA:",torch.cuda.is_available())
+        print(torch.cuda)
+        print(torch.cuda.get_arch_list())
+        self.od_model = torch.load("./models/"+od_model,  "cpu")
         self.od_model.eval()
         self.class_model = load_learner(path=model_path, file=class_model)
         self.ls_model = load_learner(path=model_path, file=ls_model)

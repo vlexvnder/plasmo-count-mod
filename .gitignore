@@ -1,0 +1,5 @@
+api/models/class_resnet.pkl
+api/models/faster-rcnn.pt
+api/models/gam_resnet.pkl
+api/models/ls_resnet.pkl
+*.pyc

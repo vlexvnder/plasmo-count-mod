@@ -80,13 +80,13 @@ class Result:
             lambda x: round(x, self.n_digits))
         return asex[['filename', 'life_stage']]
 
-    def plot_prediction(self, name = "", dir = "output", **kwargs):
+    def plot_prediction(self, data_dir = "../../data/", name = "", dir = "output", **kwargs):
         try:
-            os.mkdir("./tmp/" + dir)
+            os.mkdir(data_dir + dir)
         except FileExistsError:
             # directory already exists
             pass
-        fname = str("./tmp/" + dir + "/" + name + '.png')
+        fname = str(data_dir + dir + "/" + name + '.png')
         buf = io.BytesIO()
         plot_labels(self.img, {
             'boxes': self.pred['boxes'].tolist(),
