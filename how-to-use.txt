@@ -1,0 +1,18 @@
+Step 1: Go to the directory labelled "data". Put a copy of the files you want to analyze in the subdirectory labelled "input". 
+If there are already images there, you can delete them.
+
+Step 2: Open the program called "Anaconda Prompt" (Click the search button in the bottom left corner, and type "Anaconda Prompt"). 
+You should see a black and white command terminal pop up
+
+Step 3: Copy and paste (Ctrl-C and Ctrl-V) the command on the next line into the terminal. Press enter.
+
+    conda run -n plasmo python C:\Users\la-filipaferreira\Documents\plasmo-count-mod\run.py
+
+
+
+Step 4: Wait for the command to run. You may not see output until the program finishes running! 
+You will find your annotated files in the data directory, in a folder called PlasmoCount-<year>-<month>-<day>-<hours>_<minutes>_<seconds>
+
+Step 5: Move your folder somewhere else to keep things clean for the next person :)
+
+Other notes: Using lower resolution images (.jpg) will make it go faster. Expect ~30 seconds - 1 minute per image.  

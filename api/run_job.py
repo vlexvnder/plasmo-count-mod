@@ -14,6 +14,8 @@ from programs.result import Result
 from programs.summarize import summarize
 
 import pandas as pd
+from datetime import datetime
+
 
 
 
@@ -30,23 +32,25 @@ def run(dir, cutoffs = [1.5, 2.5], input = "input/", output = "output/"):
 
     model = Model(cutoffs=cutoffs)
 
+    current_dateTime = datetime.now()
 
+    output_dir_name = "output/PlasmoCount-"+str(current_dateTime.year)+"-"+str(current_dateTime.month)+"-"+str(current_dateTime.day)+"-"+str(current_dateTime.hour)+"_"+str(current_dateTime.minute)+"_"+str(current_dateTime.second)
     files = os.listdir(dir + input)
-
+    # print(dir + input, files)
     # start analysis
     results = []
     for i, filename in enumerate(files):
         filename = dir + input + filename
         img = model.load_image(filename)
         pred = model.predict(job['has-gams'])
-        print(pred)
-        result = Result(str(i), filename, img, pred)
-        result.plot_prediction(name=filename.split("/")[-1][:-4])
+        # print(pred)
+        result = Result(str(i), filename+"-annotated", img, pred)
+        result.plot_prediction(data_dir=dir, dir = output_dir_name,  name=filename.split("/")[-1][:-4]+"-annotated")
         results.append(result.to_output())
-        print(results)
+        # print(results)
 
     df = pd.DataFrame(results)
-    df.to_csv(dir + output + "results.csv")
+    df.to_csv(dir + output_dir_name + "/results.csv")
     output = {
         'data': {
             'results': results,
@@ -54,8 +58,7 @@ def run(dir, cutoffs = [1.5, 2.5], input = "input/", output = "output/"):
         },
         'statusOK': True
     }
-
-    return output
+    return output_dir_name
 
 if __name__ == "__main__":
-    print(run("../../data/"))
+    print(run("../data/"))
